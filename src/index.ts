@@ -3,6 +3,7 @@ import Company from './models/Company';
 import Event from './models/Event';
 import expressLayouts from 'express-ejs-layouts';
 import bodyParser from 'body-parser';
+import sequelize from "./models"
 Pwoli.viewPath = 'src/views';
 const express = require("express");
 const app = express();
@@ -19,6 +20,7 @@ app.use((req, res, next) => { //middleware to assign the current request to Pwol
   Pwoli.request = req;
   next();
 })
+sequelize.sync()
 // define a route handler for the default home page
 app.get('/items/list', async function (req, res, next) {
   const filterModel = new Company();
@@ -142,5 +144,5 @@ app.get('/items/api', async function (req, res, next) {
 
 // start the Express server
 app.listen( port, () => {
-    console.log( `server started at http://localhost:${ port }` );
+    console.log( `Server started. Please visit http://localhost:${ port }/items/list` );
 } );
