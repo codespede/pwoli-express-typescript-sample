@@ -1,10 +1,12 @@
-import { Application as Pwoli, DataHelper, GridView, CheckboxColumn, RadioButtonColumn, SerialColumn, ActionColumn, ActiveForm } from 'pwoli';
+import { Application as Pwoli, DataHelper, GridView, CheckboxColumn, RadioButtonColumn, SerialColumn, ActionColumn, ActiveForm, ListView } from 'pwoli';
 import Company from './models/Company';
 import Event from './models/Event';
 import expressLayouts from 'express-ejs-layouts';
 import bodyParser from 'body-parser';
 import sequelize from "./models"
-Pwoli.viewPath = 'src/views';
+import path from 'path';
+Pwoli.setViewPath(path.join(__dirname, 'views'));
+Pwoli.view.setLayout('/layouts/main.ejs');
 const express = require("express");
 const app = express();
 const port = 8080; // default port to listen
@@ -12,6 +14,7 @@ app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
 app.set("views", "src/views");
 app.use('/static', express.static('static'));
+app.use('/public', express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressLayouts);
 app.use(express.json());
@@ -70,6 +73,128 @@ app.get('/items/list', async function (req, res, next) {
   //res.render('index', { title: 'Pwoli Express Sample App', grid: await grid.render() }) //Express's native way to render the view without Pwoli's custom headers
   return Pwoli.respond(res, content); //Recommended way as this method allows `await` calls inside views.
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/items/my-list', async function (req, res, next) {
+  const filterModel = new Company();
+  const dataProvider = filterModel.search(DataHelper.parseUrl(req.url));
+  const grid = new GridView({
+    dataProvider,
+    filterModel,
+    columns: [
+      { class: SerialColumn },
+      'id',
+      'title'
+    ],
+    options:{ id:'my-grid' }
+  });
+  let content;
+  if (req.headers['x-requested-with'] === 'XMLHttpRequest')
+      content = await Pwoli.view.render('/_grid.ejs', { grid, company: new Company() }, false);
+  else content = await Pwoli.view.render('/grid.ejs', { grid, company: new Company() });
+  return Pwoli.respond(res, content);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/items/list-view', async function (req, res, next) {
+  const filterModel = new Company();
+  const dataProvider = filterModel.search(DataHelper.parseUrl(req.url));
+  const list = new ListView({
+    dataProvider,
+    itemView: '/_item.ejs',
+    filterModel,
+    columns: [
+      { class: SerialColumn },
+      'id',
+      'title'
+    ],
+    options:{ id:'my-list' }
+  });
+  let content;
+  console.log('xhr', req.headers, req.headers['x-requested-with'], req.headers['X-Requested-With'], req.headers['x-requested-with'] === 'XMLHttpRequest')
+  if (req.headers['x-requested-with'] === 'XMLHttpRequest')
+      content = await Pwoli.view.render('/_list.ejs', { list, company: new Company() }, false);
+  else content = await Pwoli.view.render('/list.ejs', { list, company: new Company() });
+  return Pwoli.respond(res, content);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const postHandler = async function (req, res, next) { // if the route is "items/create" or "items/update"
   const company = req.url.includes('items/create')
                 ? new Company()
