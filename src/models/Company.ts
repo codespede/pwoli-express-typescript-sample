@@ -9,7 +9,7 @@ export default class Company extends (Model as any){
   
     get getter() {
         return (async () => {
-            return (await Event.findByPk(this.eventId)).title;
+            return (await Event.findByPk(this.eventId)).title.toUpperCase();
         })();
     }
   

@@ -1,10 +1,12 @@
 <p><%= (company.isNewRecord? 'Create' : 'Update') %> Item</p>
+
 <%- await form.begin() %>
 
 <%- await form.field(company, 'title').input('text').__toString() %>
 <%- await form.field(company, 'email' ).input('text').__toString() %>
 <%- await form.field(company, 'description' ).input('text').__toString() %>
 <%- await form.field(company, 'eventId' ).dropDownList(eventsList).__toString() %>
+
 <input type="submit"/>
 
 <%- await form.end() %>

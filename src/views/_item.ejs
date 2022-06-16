@@ -1,9 +1,13 @@
 <div class="post">
     <h2></h2>
     <div class="list-item">
-        <p>ID:<%- model.id %></p>
-        <p>Title: <%- model.title %></p>
-        <p>Email: <%- model.email %></p>
-        <p>Description: <%- model.description %></p>
+        <ul>
+            <li>ID:<%- model.id %></li>
+            <li>Title: <%- model.title %></li>
+            <ul>
+                <li><b>Email: <%- model.email %></b></li>
+                <li>Description: <%- model.description %></li>
+            </ul>
+        </ul>
     </div>
 </div>
