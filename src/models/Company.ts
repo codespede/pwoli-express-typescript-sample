@@ -114,7 +114,7 @@ const attributes = {
       references: {
           key: 'id',
           model: 'Event',
-      },
+      }
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -137,7 +137,7 @@ const attributes = {
 };
 
 const options = {
-  tableName: "Company",
+  tableName: "company",
   comment: "ss",
   indexes: [
     {

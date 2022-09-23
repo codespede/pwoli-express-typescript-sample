@@ -45,9 +45,10 @@ const eventAttributes = {
     }
 };
 const eventOptions = {
-    tableName: 'Event',
+    tableName: 'event',
     comment: 'ss',
     sequelize,
     hooks: {},
+    freezeTableName: true
 };
 Event.init(eventAttributes, eventOptions);

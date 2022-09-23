@@ -6,7 +6,7 @@ const config = {
     "password": jsonConfig.password,
     "database": jsonConfig.database,
     "host": '127.0.0.1',
-    "dialect": "mysql"
+    "dialect": jsonConfig.dialect
 };
 export default sequelize = new Sequelize(
     config.database,
