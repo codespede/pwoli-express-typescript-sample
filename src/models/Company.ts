@@ -113,7 +113,7 @@ const attributes = {
       field: 'eventId',
       references: {
           key: 'id',
-          model: 'Event',
+          model: 'event',
       }
   },
   createdAt: {
@@ -142,7 +142,6 @@ const options = {
   indexes: [
     {
       name: "company-event",
-      unique: false,
       // type: "BTREE",
       fields: ["eventId"],
     },

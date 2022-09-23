@@ -18,7 +18,7 @@ module.exports = {
       })
     let insertedEvents = await queryInterface.bulkInsert('event', events, { returning: ['id'] });
     const dbEvents = await queryInterface.sequelize.query(
-      `SELECT id from Event;`
+      `SELECT id from event;`
     );
     let eventId = dbEvents[0][Math.floor(Math.random() * dbEvents[0].length) + 1].id
     let companies = [];

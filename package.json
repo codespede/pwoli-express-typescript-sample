@@ -9,6 +9,7 @@
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.1",
     "path": "^0.12.7",
+    "pg": "^8.8.0",
     "pwoli": "^0.9.7-beta"
   },
   "devDependencies": {

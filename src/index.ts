@@ -9,7 +9,7 @@ Pwoli.setViewPath(path.join(__dirname, 'views'));
 Pwoli.view.setLayout('/layouts/main.ejs');
 const express = require("express");
 const app = express();
-const port = 8080; // default port to listen
+const port = 3006; // default port to listen
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
 app.set("views", "src/views");
@@ -23,7 +23,7 @@ app.use((req, res, next) => { //middleware to assign the current request to Pwol
   Pwoli.request = req;
   next();
 })
-sequelize.sync()
+//sequelize.sync()
 // define a route handler for the default home page
 
 
@@ -106,6 +106,7 @@ app.get('/items/my-list', async function (req, res, next) {
   else content = await Pwoli.view.render('/grid.ejs', { grid, company: new Company() });
   return Pwoli.respond(res, content);
 });
+
 
 
 
@@ -218,51 +219,77 @@ const postHandler = async function (req, res, next) { // if the route is "items/
 app.all('/items/create', postHandler);
 app.all('/items/update/:id/', postHandler);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get('/items/delete/:id', async function (req, res, next) {
     await Company.destroy({ where: { id: req.params.id } });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.get('/items/api', async function (req, res, next) {
     const filterModel = new Company();
     const dataProvider = filterModel.search(DataHelper.parseUrl(req.url));
     dataProvider.query.include = [{ model: Event, as: 'event' }];
-    let sort = dataProvider.getSort();
-    //console.log('dp-sort', sort)
-    sort.attributes['event.title'] = {
+    dataProvider.getSort().attributes['event.title'] = {
         asc: ['event', 'title', 'asc'],
         desc: ['event', 'title', 'desc'],
     };
-    dataProvider.setSort(sort);
     //If you want to add custom fields to the JSON response for each model, just do like below:
     const models = await dataProvider.getModels();
-    for (let model of models) {
-        model.setAttributeValues({
-            myGetter: await model.getter, //getter is a custom `getter` written in Company model.
-            // model.dataValues.anotherField = anotherValue;
-        });
-        console.log('api-model', model);
-    }
-    await dataProvider.setModels(models);
-
+    for (let model of models)
+        model.setAttributeValues({ myGetter: await model.getter }) //getter is a custom `getter` method written in Company model.
+    Pwoli.serializer.collectionEnvelope = 'companies';
     Pwoli.respond(res, dataProvider);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // start the Express server
 app.listen( port, () => {
