@@ -8,6 +8,7 @@ Easiest way is to clone this repo into your local:
 
 ```
 git clone https://github.com/internetmango/pwoli-express-typescript-sample.git
+# cd into the directory
 npm install
 ```
 
