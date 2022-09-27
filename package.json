@@ -10,7 +10,7 @@
     "express-ejs-layouts": "^2.5.1",
     "path": "^0.12.7",
     "pg": "^8.8.0",
-    "pwoli": "^0.9.7-beta"
+    "pwoli": "^1.0.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
