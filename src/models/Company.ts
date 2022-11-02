@@ -3,6 +3,16 @@ import { Model } from "pwoli";
 import sequelize from './index.js';
 import Event from "./Event";
 export default class Company extends (Model as any){
+  constructor(config = {}){
+    super(config);
+    Object.assign(this, config);
+    this.attributeLabels = {
+        description: 'Descc',
+    };
+  }
+    // public attributeLabels = {
+    //     title: 'Titttle',
+    // };
     static associate() {
         Company.hasOne(Event, { as: 'event', foreignKey: 'id', sourceKey: 'eventId', constraints: false });
     }

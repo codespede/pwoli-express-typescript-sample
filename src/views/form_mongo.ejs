@@ -1,0 +1,11 @@
+<p><%= (event.isNewRecord? 'Create' : 'Update') %> Item</p>
+<%- await form.begin() %>
+
+<%- await form.field(event, 'title').input('text').__toString() %>
+<%- await form.field(event, 'contactPerson.name' ).input('text').__toString() %>
+<%- await form.field(event, 'contactPerson.email' ).input('text').__toString() %>
+<%- await form.field(event, 'contactPerson.phone' ).input('text').__toString() %>
+<%- await form.field(event, 'organization' ).dropDownList(orgsList).__toString() %>
+<input type="submit"/>
+
+<%- await form.end() %>

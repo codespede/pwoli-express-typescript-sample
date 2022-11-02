@@ -32,6 +32,16 @@ sequelize db:seed:all
 npm run start
 ```
 
-Point your browser to http://localhost:8080/items/list and you should see a page with a `GridView` where you can do CRUD operations for the items.
+Point your browser to http://localhost:3006/items/list and you should see a page with a `GridView` where you can do CRUD operations for the items.
 
-Point your browser to http://localhost:8080/items/api to see the RESTful API features mentioned in https://internetmango.github.io/pwoli/rest-api
+Point your browser to http://localhost:3006/items/api to see the RESTful API features mentioned in https://internetmango.github.io/pwoli/rest-api
+
+## Using Mongoose as ORM
+
+For using Mongoose as the ORM, please follow the below steps:
+- Rename the file `orm-model-config-sample.cjs` to `orm-model-config.cjs` in your working directory.
+- Run the app like below:
+    ```
+    npm run mongo
+    ```
+- Then point your browser to the above URLs.
